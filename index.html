@@ -88,6 +88,7 @@
             text-decoration: none;
             transition: all 0.5s ease;
             backdrop-filter: blur(5px);
+            cursor: pointer;
         }
         .btn-ghost:hover {
             border-color: rgba(255, 255, 255, 0.6);
@@ -183,13 +184,17 @@
 </head>
 <body>
 
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
     <section class="hero">
         <h1 class="hero-quote reveal">
             "Тільки самому сидячи в тишині я почув,<br>
             як сильно я тебе люблю"
         </h1>
 
-        <a href="#letter" class="btn-ghost reveal" style="transition-delay: 0.2s;">
+        <a href="#letter" class="btn-ghost reveal" id="start-btn" style="transition-delay: 0.2s;">
             Читати
         </a>
     </section>
@@ -242,6 +247,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // 1. Анімація появи тексту
             const revealElements = document.querySelectorAll('.reveal');
             
             const observerOptions = {
@@ -261,8 +267,20 @@
 
             revealElements.forEach(el => observer.observe(el));
 
-            document.querySelector('.btn-ghost').addEventListener('click', function(e) {
+            // 2. Логіка музики та скролу
+            const btn = document.querySelector('#start-btn'); // Кнопка "Читати"
+            const audio = document.getElementById('bg-music');
+            audio.volume = 0.1; // Гучність 50% (щоб не злякати)
+
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
+                
+                // Спроба запустити музику
+                audio.play().catch(error => {
+                    console.log("Автозапуск заблоковано браузером, потрібен ще один клік.");
+                });
+
+                // Плавний скрол вниз
                 document.querySelector('#letter').scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
