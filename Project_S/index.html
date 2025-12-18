@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебе</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. VARIABLES & THEME --- */
+        :root {
+            --bg-color: #050505;       /* Deep Black */
+            --text-primary: #E0E0E0;   /* Off-white */
+            --text-secondary: #9aa0a6; /* Grey for captions */
+            --accent-glow: rgba(255, 255, 255, 0.08);
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --easing: cubic-bezier(0.16, 1, 0.3, 1); /* "Apple-like" smooth ease */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-weight: 300;
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 2. LAYOUT UTILITIES --- */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- 3. CINEMATIC ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(10px);
+            transition: all 1.6s var(--easing);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-style: italic;
+            margin-bottom: 3rem;
+            color: #fff;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -0.02em;
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+        .btn-ghost:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            color: white;
+            background: rgba(255, 255, 255, 0.03);
+            transform: scale(1.02);
+        }
+
+        /* --- 5. LETTER CONTENT --- */
+        .letter-section {
+            padding: 120px 0;
+            min-height: 100vh;
+        }
+
+        .letter-content p {
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+        }
+
+        /* Drop cap for the first letter */
+        .letter-content p:first-of-type::first-letter {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            float: left;
+            line-height: 0.8;
+            margin-right: 12px;
+            margin-top: 6px;
+        }
+
+        /* --- 6. PHOTO STYLES --- */
+        /* Single Main Photo */
+        .memory-photo-container {
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .memory-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%) contrast(1.1) brightness(0.9);
+            transition: transform 10s ease;
+        }
+        .memory-photo-container:hover .memory-photo {
+            transform: scale(1.03);
+        }
+
+        /* Mosaic Grid (2 Photos) */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 60px 0;
+        }
+        .photo-grid img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 3/4; /* Perfect for mobile portrait photos */
+            object-fit: cover;
+            border-radius: 2px;
+            filter: grayscale(100%) contrast(1.1) brightness(0.9);
+        }
+
+        .caption {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* --- 7. FOOTER --- */
+        .footer {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+        .signature {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        .date {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1 class="hero-quote reveal">
+            "Тільки самому сидячи в тишині я почув,<br>
+            як сильно я тебе люблю"
+        </h1>
+
+        <a href="#letter" class="btn-ghost reveal" style="transition-delay: 0.2s;">
+            Читати
+        </a>
+    </section>
+
+    <section id="letter" class="letter-section">
+        <div class="container letter-content">
+            
+            <p class="reveal">
+               Привіт, Сашунь. Я знаю, що букета і слів про кохання замало. Я зрозумів, що моя лінь і те, що я не вмів бути самостійним (в більшості через обтяжуючі стосунки з мамою), завдали тобі великого болю. Ти права — я дійсно був безтолковим у важливих моментах, де замість того, щоб щось робити, я хотів перевести то на сміх.
+            </p>
+
+            <p class="reveal">
+               Чому я це не зробив раніше? Бо думав лише про "сьогодні", де ти зі мною. Я більше не хочу бути дитиною, яка чекає просто шансу. Я не хочу, я стаю чоловіком, на якого ти зможеш покластися.
+            </p>
+
+            <div class="memory-photo-container reveal">
+                <img src="main-photo.jpg" alt="Спогад" class="memory-photo">
+                <div class="caption">Цього зараз не повернути, але можна створити нове.</div>
+            </div>
+
+            <p class="reveal">
+                Я вже почав ставати кращим. Практично закрив семестр, потрапив на безкоштовний проєкт з тестування, на роботі драйвером зробив собі стабільний графік. Я повернувся в зал і відмовився від того, що мені не важливо порівняно з тобою — від дешевого дофаміну та порожніх гульок.
+            </p>
+
+            <p class="reveal">
+                Я пояснив мамі прямо і твердо, що моя сім'я, яку я зараз будую — це ти. Мама залишиться мамою, але рішення і пріоритет завжди будуть на користь нашого з тобою майбутнього.
+            </p>
+
+            <div class="photo-grid reveal">
+                <img src="photo1.jpg" alt="Ми 1">
+                <img src="photo2.jpg" alt="Ми 2">
+            </div>
+            <div class="caption reveal">Ми можемо бути ще щасливішими, ніж тоді.</div>
+
+            <p class="reveal">
+                Шанс я не використав, тому просто дай мені можливість не словами, а ділом показати (уже, не потім), що я почув кожну твою претензію. Якщо людина дуже кохає, вона зміниться. Я не прошу вірити мені на слово — я прошу дозволити мені довести це вчинками.
+            </p>
+
+            <p class="reveal">
+                Я не хочу, щоб ти просто повернулася, і через 2 тижні ми знову розійшлися. Якщо потяг запустився, то він такий і буде до кінця. Я хочу побудувати все інакше, з тим досвідом, але з новими нами.
+            </p>
+
+        </div>
+    </section>
+
+    <footer class="footer reveal">
+        <div class="signature">Твій Р.</div>
+        <div class="date">December 2025, but forever</div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => observer.observe(el));
+
+            document.querySelector('.btn-ghost').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('#letter').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
